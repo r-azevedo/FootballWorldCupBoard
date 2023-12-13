@@ -9,18 +9,24 @@ namespace FootballWorldCupBoard.Services
 {
     public class ScoreboardService
     {
-        public List<Game> games = new ();
+        public Scoreboard scoreboard;
         
-        public ScoreboardService() { }
+        public ScoreboardService() 
+        {
+            scoreboard = new Scoreboard()
+            {
+                Games = new List<Game>(),
+            };
+        }
 
         public void StartGame(Game game)
         {
-            games.Add(game);
+            scoreboard.Games.Add(game);
         }
 
         public void UpdateScore(Game game, int homeScore, int awayScore)
         {
-            var gameToUpdate = games.FirstOrDefault(g => g.Id == game.Id);
+            var gameToUpdate = scoreboard.Games.FirstOrDefault(g => g.Id == game.Id);
             
             if (gameToUpdate != null)
             {
@@ -31,12 +37,12 @@ namespace FootballWorldCupBoard.Services
 
         public int GetTotalGames()
         {
-            return games.Count;
+            return scoreboard.Games.Count;
         }
         
         public Game GetGame(int id)
         {
-            var game = games.FirstOrDefault(x => x.Id == id);
+            var game = scoreboard.Games.FirstOrDefault(x => x.Id == id);
             
             if (game != null)
                 return game;
@@ -46,7 +52,7 @@ namespace FootballWorldCupBoard.Services
 
         public List<Game> GetSummaryByTotalScore()
         {
-            return games.OrderByDescending(g => g.HomeScore + g.AwayScore).ThenByDescending(g => g.Id).ToList();
+            return scoreboard.Games.OrderByDescending(g => g.HomeScore + g.AwayScore).ThenByDescending(g => g.Id).ToList();
         }
 
         public async Task SimulateLiveUpdates(int totalSeconds)
@@ -56,7 +62,7 @@ namespace FootballWorldCupBoard.Services
             for (int seconds = 1; seconds <= totalSeconds;)
             {
                 // Pick a random game to update
-                var gameToUpdate = GetGame(random.Next(games.Count+1));
+                var gameToUpdate = GetGame(random.Next(scoreboard.Games.Count+1));
 
                 if (gameToUpdate is null)
                     continue;

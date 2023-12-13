@@ -7,7 +7,7 @@ namespace FootballWorldCupBoard
     {
         static async Task Main(string[] args)
         {
-            ScoreboardService scoreboard = new();
+            ScoreboardService scoreboardService = new();
             GameService gameService = new();
             List<Game> games = new();
             
@@ -30,13 +30,13 @@ namespace FootballWorldCupBoard
 
             games.ForEach(game =>
             {
-                scoreboard.StartGame(game);
+                scoreboardService.StartGame(game);
             });
 
 
-            await scoreboard.SimulateLiveUpdates(60);
+            await scoreboardService.SimulateLiveUpdates(60);
 
-            scoreboard.DisplayFinalResults();
+            scoreboardService.DisplayFinalResults();
 
             Console.ReadLine();
         }
