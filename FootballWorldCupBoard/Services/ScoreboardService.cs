@@ -19,7 +19,7 @@ namespace FootballWorldCupBoard.Services
             };
         }
 
-        public void StartGame(Game game)
+        public void AddGame(Game game)
         {
             scoreboard.Games.Add(game);
         }

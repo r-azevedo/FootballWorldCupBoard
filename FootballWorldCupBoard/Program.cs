@@ -30,7 +30,7 @@ namespace FootballWorldCupBoard
 
             games.ForEach(game =>
             {
-                scoreboardService.StartGame(game);
+                scoreboardService.AddGame(game);
             });
 
 
