@@ -34,7 +34,7 @@ namespace FootballWorldCupBoard
             });
 
 
-            await scoreboardService.SimulateLiveUpdates(60);
+            await scoreboardService.SimulateLiveUpdates(90);
 
             scoreboardService.DisplayFinalResults();
 
